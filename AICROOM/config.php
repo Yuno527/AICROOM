@@ -1,6 +1,6 @@
 <?php
 // Configuración de la base de datos
-define('DB_HOST', 'localhost');
+define('DB_HOST', '138.68.24.229');
 define('DB_NAME', 'aicroom');
 define('DB_USER', 'root');
 define('DB_PASS', '');
