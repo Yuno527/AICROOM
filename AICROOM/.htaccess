@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Redirigir la página principal (index.html) al archivo PHP que verifica autenticación
+RewriteRule ^index\.html$ index_redirect.php [L]
+
+# Redirigir la raíz del sitio al archivo PHP que verifica autenticación
+RewriteRule ^$ index_redirect.php [L]
+
+# Proteger páginas principales - redirigir al login si no están autenticados
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_URI} \.(html)$
+RewriteCond %{REQUEST_URI} !login\.html$
+RewriteCond %{REQUEST_URI} !register\.html$
+RewriteRule ^(.*)$ auth_redirect.php?page=$1 [L]
+
+# Permitir acceso directo a archivos PHP de autenticación
+RewriteRule ^(login|register|logout|get_user_status|webhook_handler|index_redirect)\.php$ - [L]
+
+# Permitir acceso a recursos estáticos
+RewriteRule \.(css|js|png|jpg|jpeg|gif|ico|svg)$ - [L] 
