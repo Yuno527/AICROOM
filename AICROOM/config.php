@@ -2,8 +2,8 @@
 // Configuración de la base de datos
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'aicroom');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_USER', 'aicuser');
+define('DB_PASS', 'AI.COL.2026');
 
 // Crear conexión
 function getConnection() {
