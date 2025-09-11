@@ -1087,15 +1087,11 @@ a:hover {
 /* HERO SECTION ULTRA LLAMATIVO */
 .hero {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 600px;
     background: #314dcd;
     color: #fff;
-    text-align: center;
     position: relative;
-    padding: 120px 5% 100px 5%;
     box-shadow: 0 12px 48px #314dcd44;
     overflow: hidden;
     animation: fadeInUp 1.2s cubic-bezier(0.4,0,0.2,1);
@@ -2127,7 +2123,7 @@ footer {
 }
 
 section, .benefits-section, .how-it-works-section, .testimonials-section, .final-cta, .accessibility-section { 
-  border-radius: 0;
+  border-bottom: 0;
 }
 
 .section-header {
