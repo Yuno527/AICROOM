@@ -32,7 +32,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 /* Estilos para formularios de login y registro */
@@ -121,7 +120,7 @@
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 10rem;
     margin-bottom: 1rem;
 }
 
@@ -382,7 +381,7 @@ a:hover {
 .navbar {
     background: linear-gradient(135deg, #314dcd 0%, #082142 100%);
     color: white;
-    padding: 0 20px;
+    padding: 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -394,6 +393,7 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     height: 70px;
+    padding: 0 30px;
 }
 
 .logo {
@@ -415,6 +415,7 @@ a:hover {
     list-style: none;
     margin: 0;
     padding: 0;
+    gap: 0px;
 }
 
 .nav-item {
@@ -424,7 +425,7 @@ a:hover {
 .nav-link {
     color: white;
     text-decoration: none;
-    padding: 23px 15px;
+    padding: 23px 25px;
     display: block;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -454,8 +455,10 @@ a:hover {
 .user-menu {
     display: flex;
     align-items: center;
-    margin-left: 15px;
+    margin-left: 30px;
     position: relative;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .user-name {
@@ -598,6 +601,8 @@ a:hover {
     border-radius: 8px;
     transition: var(--transition-normal);
     position: relative;
+    color: white;
+    z-index: 1001;
 }
 
 .user-name-clickable:hover {
@@ -622,36 +627,43 @@ a:hover {
     top: 100%;
     right: 0;
     background: var(--white);
-    border-radius: 12px;
+    border-radius: 8px;
     box-shadow: var(--shadow-lg);
-    min-width: 200px;
+    min-width: 160px;
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
     border: 1px solid var(--gray-light);
+    margin-top: 5px;
+    display: none;
+    pointer-events: none;
 }
 
 .user-dropdown.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    display: block !important;
+    pointer-events: auto;
 }
 
 .dropdown-content {
-    padding: 8px 0;
+    padding: 4px 0;
 }
 
 .dropdown-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 8px;
+    padding: 8px 12px;
     color: var(--dark-gray);
     text-decoration: none;
     transition: var(--transition-normal);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    margin: 2px 6px;
 }
 
 .dropdown-item:hover {
@@ -659,10 +671,19 @@ a:hover {
     color: var(--primary);
 }
 
+.dropdown-item.logout-item {
+    color: #dc3545;
+}
+
+.dropdown-item.logout-item:hover {
+    background: #f8d7da;
+    color: #721c24;
+}
+
 .dropdown-item i {
-    width: 16px;
+    width: 14px;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 /* Estilos para el menú móvil */
@@ -737,15 +758,24 @@ a:hover {
     font-size: 0.9rem;
 }
 
+.mobile-dropdown-item.logout-item {
+    color: #dc3545;
+}
+
+.mobile-dropdown-item.logout-item:hover {
+    background: rgba(248, 215, 218, 0.3);
+    color: #721c24;
+}
+
 /* Responsive para el menú de usuario */
 @media (max-width: 768px) {
     .user-dropdown {
-        min-width: 180px;
+        min-width: 140px;
     }
     
     .dropdown-item {
-        padding: 10px 14px;
-        font-size: 0.9rem;
+        padding: 6px 10px;
+        font-size: 0.85rem;
     }
 }
 
@@ -820,15 +850,19 @@ a:hover {
     border-radius: 22px;
     margin-bottom: 60px;
     padding: 60px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mission-vision-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 40px;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     justify-items: center;
+    justify-content: center;
 }
 
 .mission-card, .vision-card {
@@ -839,7 +873,8 @@ a:hover {
     text-align: center;
     transition: var(--transition-normal);
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .mission-card:hover, .vision-card:hover {
@@ -973,7 +1008,8 @@ a:hover {
     .mission-vision-grid {
         grid-template-columns: 1fr;
         gap: 30px;
-        max-width: 500px;
+        max-width: 400px;
+        justify-content: center;
     }
     
     .team-grid {
@@ -1014,8 +1050,9 @@ a:hover {
     }
     
     .mission-vision-grid {
-        max-width: 400px;
+        max-width: 350px;
         gap: 25px;
+        justify-content: center;
     }
     
     .mission-card, .vision-card {
@@ -1171,10 +1208,7 @@ a:hover {
     70% { box-shadow: 0 0 0 24px #314dcd00; }
     100% { box-shadow: 0 0 0 0 #314dcd00; }
 }
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px) scale(1.04); }
-}
+
 @keyframes zoomIn {
     0% { transform: scale(1); }
     50% { transform: scale(1.12); }
@@ -1189,15 +1223,7 @@ a:hover {
 .benefits-grid, .steps-grid {
     gap: 48px;
 }
-.benefit-card, .step-card {
-    border-radius: 28px;
-    box-shadow: 0 8px 32px #314dcd22;
-    border: 2px solid #314dcd22;
-    background: #fff;
-    padding: 3rem 2.5rem;
-    transition: box-shadow 0.2s, transform 0.2s, border 0.2s;
-    animation: bounce 2.2s infinite;
-}
+
 .benefit-card:hover, .step-card:hover {
     border: 2px solid #314dcd;
     box-shadow: 0 16px 48px #314dcd33;
@@ -2534,9 +2560,6 @@ section, .benefits-section, .how-it-works-section, .testimonials-section, .final
 
 .mission-vision-section {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-top: 3rem;
 }
 
 .mission-card, .vision-card {
@@ -3006,14 +3029,6 @@ section, .benefits-section, .how-it-works-section, .testimonials-section, .final
 }
 
 /* Estilos para el menú de usuario y cerrar sesión */
-.user-menu {
-    position: relative;
-}
-
-.user-dropdown {
-    position: relative;
-    display: inline-block;
-}
 
 .user-link {
     display: flex;
@@ -3035,43 +3050,6 @@ section, .benefits-section, .how-it-works-section, .testimonials-section, .final
     font-size: 1.1em;
 }
 
-.user-dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: var(--white);
-    min-width: 200px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    z-index: 1000;
-    overflow: hidden;
-    margin-top: 5px;
-}
-
-.user-dropdown-content.show {
-    display: block;
-    animation: fadeInDown 0.3s ease;
-}
-
-.user-dropdown-content a {
-    color: var(--dark-gray);
-    padding: 12px 20px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-    border-bottom: 1px solid var(--gray-light);
-}
-
-.user-dropdown-content a:last-child {
-    border-bottom: none;
-}
-
-.user-dropdown-content a:hover {
-    background: var(--lighter);
-    color: var(--primary);
-}
 
 .logout-btn {
     color: #dddddd !important;
@@ -3121,15 +3099,6 @@ section, .benefits-section, .how-it-works-section, .testimonials-section, .final
 
 /* Responsive para el menú de usuario */
 @media (max-width: 768px) {
-    .user-dropdown-content {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        width: 100%;
-        border-radius: 0;
-        margin-top: 0;
-    }
     
     .user-link {
         padding: 8px 12px;

@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdown.className = 'user-dropdown';
             dropdown.innerHTML = `
                 <div class="dropdown-content">
-                    <a href="#" class="dropdown-item" onclick="logout()">
+                    <a href="#" class="dropdown-item logout-item" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                     </a>
                 </div>
@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Agregar evento de click
                 userNameElement.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     toggleDropdown();
                 });
             }
@@ -145,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileDropdown.className = 'mobile-user-dropdown';
             mobileDropdown.innerHTML = `
                 <div class="mobile-dropdown-content">
-                    <a href="#" class="mobile-dropdown-item" onclick="logout()">
+                    <a href="#" class="mobile-dropdown-item logout-item" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Cerrar sesión
                     </a>
                 </div>
@@ -171,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Agregar evento de click
                 mobileUserName.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     toggleMobileDropdown();
                 });
             }
