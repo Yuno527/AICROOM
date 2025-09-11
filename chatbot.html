@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Habilidades Blandas - AICROOM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos para el chatbot embebido */
+        .chatbot-embedded {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px 20px;
+        }
+        
+        .chatbot-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        
+        .chatbot-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .chatbot-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+        
+        .chatbot-header h1 i {
+            animation: pulse 2s infinite;
+        }
+        
+        .chatbot-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1em;
+        }
+        
+        .chatbot-content {
+            padding: 40px;
+            min-height: 500px;
+            background: #ffffff;
+        }
+        
+        .welcome-section {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .welcome-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+        
+        .welcome-section p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .start-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .question-section {
+            display: none;
+        }
+        
+        .question-text {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option-button {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+        
+        .option-button:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-1px);
+        }
+        
+        .option-button.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        
+        .progress-section {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.85em;
+        }
+        
+        .completion-section {
+            text-align: center;
+            padding: 30px 20px;
+            display: none;
+        }
+        
+        .completion-section h2 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .completion-section p {
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .close-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .close-button:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+        
+        .login-required {
+            text-align: center;
+            padding: 30px 20px;
+            display: none;
+        }
+        
+        .login-required h2 {
+            color: #dc3545;
+            margin-bottom: 15px;
+        }
+        
+        .login-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 15px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .login-button:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+        
+        .already-completed {
+            text-align: center;
+            padding: 30px 20px;
+            display: none;
+        }
+        
+        .already-completed h2 {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .welcome-section, .question-section, .completion-section {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .chatbot-embedded {
+                padding: 20px 10px;
+            }
+            
+            .chatbot-content {
+                padding: 25px;
+            }
+            
+            .chatbot-header {
+                padding: 25px 20px;
+            }
+            
+            .chatbot-header h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-embedded">
+        <div class="chatbot-container">
+            <div class="chatbot-header">
+                <h1><i class="fas fa-robot"></i> Evaluación</h1>
+            </div>
+            
+            <div class="chatbot-content">
+                <!-- Sección de bienvenida -->
+                <div class="welcome-section" id="welcomeSection">
+                    <h2>Examen psicológico.</h2>
+                    <p>¡Hola! Mi nombre es AICROOM, vamos a comenzar una prueba psicológica para tu
+                        proceso de reclutamiento. Responde con sinceridad recuerda que no hay respuestas
+                        incorrectas ni respuestas correctas.
+                        Cada respuesta refleja tu estilo personal.
+                        Responde con total naturalidad, cuando estes listo haz clic en comenzar. ¡Mucho
+                        éxito!
+                    </p>
+                    <button class="start-button" onclick="chatbotPage.startTest()">
+                        <i class="fas fa-play"></i> Comenzar Evaluación
+                    </button>
+                </div>
+                
+                <!-- Sección de pregunta -->
+                <div class="question-section" id="questionSection">
+                    <div class="timer" id="timer" style="font-weight:bold;color:#667eea;margin-bottom:10px;"></div>
+                    <div class="question-text" id="questionText"></div>
+                    <div class="options-container" id="optionsContainer"></div>
+                </div>
+                
+                <!-- Sección de completado -->
+                <div class="completion-section" id="completionSection">
+                    <h2>✅ ¡Gracias por completar la prueba!</h2>
+                    <p>Tus respuestas han sido registradas exitosamente.</p>
+                    <p>Nuestro equipo las revisará y las tendrá en cuenta para los procesos correspondientes.</p>
+                    <p>🔒 Recuerda que toda la información proporcionada será tratada con confidencialidad.</p>
+                    <p>¡Te deseamos muchos éxitos! 🌟</p>
+                    <button class="close-button" onclick="chatbotPage.closePage()">
+                        <i class="fas fa-home"></i> Volver al Inicio
+                    </button>
+                </div>
+                
+                <!-- Sección de login requerido -->
+                <div class="login-required" id="loginRequired">
+                    <h2>🔐 Acceso Requerido</h2>
+                    <p>Para realizar la evaluación de habilidades blandas, necesitas iniciar sesión.</p>
+                    <a href="login.html" class="login-button">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    </a>
+                </div>
+                
+                <!-- Sección de ya completado -->
+                <div class="already-completed" id="alreadyCompleted">
+                    <h2>📝 Evaluación Completada</h2>
+                    <p><strong>Ya has completado la evaluación de habilidades blandas.</strong></p>
+                    <p>Por política de la empresa, solo se permite un intento por usuario para garantizar la objetividad de los resultados.</p>
+                    <p>Tu evaluación ha sido registrada y será revisada por nuestro equipo.</p>
+                    <p>Gracias por tu participación.</p>
+                    <button class="close-button" onclick="chatbotPage.closePage()">
+                        <i class="fas fa-home"></i> Volver al Inicio
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Barra de progreso -->
+            <div class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">0/20</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot embebido - JavaScript integrado -->
+    <script>
+        // Adaptación del chatbot para la página embebida
+        class ChatbotPage {
+            constructor() {
+                this.currentQuestion = 0;
+                this.answers = [];
+                this.totalScore = 0;
+                this.isCompleted = false;
+                this.userId = null;
+                
+                // Definir las preguntas directamente aquí
+                this.allQuestions = [
+                    {
+                        question: "Te asignan una tarea que parece poco útil para el resultado final del proyecto, ¿cómo actúas?",
+                        options: [
+                            { text: "Me enfoco en cumplirla con eficiencia, aunque no esté convencido de su aporte.", score: 3 },
+                            { text: "Planteo que podría dedicarse a algo más relevante y espero una nueva asignación.", score: 1 },
+                            { text: "La realizo sin mayor esfuerzo, ya que no parece tener impacto importante.", score: 2 }
+                        ]
+                    },
+                    {
+                        question: "Recibes retroalimentación negativa sobre un trabajo que pensabas haber hecho bien.¿Qué haces?",
+                        options: [
+                            { text: "Me siento frustrado, aunque acepto la critica para evitar problemas.", score: 1 },
+                            { text: "Escucho la crítica, pero cuestiono si realmente era necesaria.", score: 2 },
+                            { text: "Analizo la retroalimentación con apertura, reviso mi trabajo y tomo nota para mejorar en futuras ocasiones.", score: 3 }
+                        ]
+                    },
+                    {
+                        question: "Tienes múltiples tareas urgentes para hoy, pero también una reunión clave para mañana que requiere preparación.¿Qué haces?",
+                        options: [
+                            { text: "Me enfoco solo en lo urgente hoy y preparo la reunión mañana temprano.", score: 1 },
+                            { text: "Reorganizo mi dia para avanzar algo en la preparación mientras atiendo lo urgente.", score: 3 },
+                            { text: "Delego una de las tareas urgentes para tener tiempo para la reunión.", score: 2 }
+                        ]
+                    },
+                    {
+                        question: "Estás comenzando un nuevo proyecto de varias fases. ¿Cómo organizar tu trabajo?",
+                        options: [
+                            { text: "Ingreso todo a mi agenda y reservo bloques especifícos para cada fase.", score: 2 },
+                            { text: "Lo empiezo sin un esquema claro y ajusto conforme surgen imprevistos.", score: 1 },
+                            { text: "Divido el proyecto en etapas, defino entregables por fase y reviso el avance semanalmente.", score: 3 }
+                        ]
+                    },
+                    {
+                        question: "Durante la ejecución de una tarea grupal, tienes una idea que podria mejorar el proceso, pero el grupo ya acordó un metodo distinto. ¿Quéhaces?",
+                        options: [
+                            { text: "Guardo la idea para otra ocasión y sigo el plan acordado sin más.", score: 1 },
+                            { text: "Presento mi idea como complemento y propongo integrarla sin modificar el metodo original.", score: 3 },
+                            { text: "Sugiero replantear el enfoque completo para aplicar mi idea desde el inicio.", score: 2 }
+                        ]
+                    },
+                    {
+                        question: "Tu equipo decide un enfoque que no compartes, pero la mayoria esta de acuerdo. ¿Qué haces?",
+                        options: [
+                            { text: "Lo acepto, aunque internamente sigo en desacuerdo.", score: 2 },
+                            { text: "Expreso mi punto de vista con argumentos, pero respeto la desición final del equipo.", score: 3 },
+                            { text: "Insisto en mi postura y propongo cambiar el rumbo durante la ejecución.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Te integras a un equipo con una cultura radicalmente distinta a la tuya: formas de comunicar, trabajar y decidir. ¿Cómo actúas?",
+                        options: [
+                            { text: "Observo, escucho y adapto mi estilo sin perder mi esencia profecional.", score: 3 },
+                            { text: "Intento imponer mi forma de trabajar porque creo que es más eficiente.", score: 2 },
+                            { text: "Me mantengo al margen y cumplo sin involucrarme demasiado.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Durante una presentación, te cambia el orden del programa y ahora tienes que improvisar antes de lo previsto. ¿Quéhaces?",
+                        options: [
+                            { text: "Mantengo la calma y adapto mis ideas al momento, confiando en mi preparacion previa.", score: 3 },
+                            { text: "Me disculpo y trato de que alguien más tome el turno mientras me organizo.", score: 2 },
+                            { text: "Me bloqueo, dejo notar mi incomodidad y sigo el guion como si nada huebiera pasado.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Tu {íder te asigna una actividad que no te corresponde, pero asegura que necesita apoyo urgente. ¿Cómo reaccionas?",
+                        options: [
+                            { text: "La realizo sin preguntar, aunque afecte mis propios pendientes.", score: 2 },
+                            { text: "Explico mis tareas actuales y propongo alternativas para ayudar sin descuidar mis compromisos.", score: 3 },
+                            { text: "La rechazo porque no forma parte de mis responsabilidades formales.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "El resultado de tu trabajo afectará directamente la entrega de un proyecto conjunto, pero tienes poco tiempo para completarlo. ¿Cómo procedes?",
+                        options: [
+                            { text: "Lo hago rápido para entregar algo funcional, aunque sé que podría ser mejor.", score: 2 },
+                            { text: "Informo que necesito más teimpo y solicito apoyo para asegurar la calidad.", score: 3 },
+                            { text: "Entego lo que tengo sin avisar, esperando que pase desapercibido.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Durante una reunión, dos compañeros discuten acaloradamente por diferencias en el enfoque del proyecto. Tú estás presente y el ambiente se tensa. ¿Qué haces?",
+                        options: [
+                            { text: "Me mantengo al margen para no involucrarme en el conflicto.", score: 1 },
+                            { text: "Intervengo con calma, propongo que se escuchen mutuamente y sugiero retomar el enfoque comun.", score: 3 },
+                            { text: "Cambio de tema para evitar que el conflicto escale.", score: 2 }
+                        ]
+                    },
+                    {
+                        question: "Un compañero te acusa de no cumplir con una parte del trabajo, aunque tú sabes que sí lo hiciste. ¿Cómo respondes?",
+                        options: [
+                            { text: "Le explico mi parte con evidencia, pero evito confrontarlo directamente.", score: 2 },
+                            { text: "Le respondo con firmeza y dejo claro que esta equivocado.", score: 1 },
+                            { text: "Escucho su punto, presento mi evidencia con respeto y propongo revisar juntos el proceso para aclararlo.", score: 3 }
+                        ]
+                    },
+                    {
+                        question: "Tu líder está ausente y surge un problema urgente que afecta al equipo. ¿Cómo reaccionas?",
+                        options: [
+                            { text: "Asumo el liderazgo temporal, organizo al equipo y tomo desiciones informadas.", score: 3 },
+                            { text: "Intento mantener la calma y espero instrucciones por correo o mensaje.", score: 2 },
+                            { text: "Me limito a mi tarea individual y dejo que otro se encargue.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "En una junta, se abre espacio para sugerencias sobre cómo mejorar el clima laboral. ¿Qué haces?",
+                        options: [
+                            { text: "Escucho las ideas de los demás y apoyo las que me parezcan adecuadas.", score: 2 },
+                            { text: "Comparto una propuesta concreta que ya había pensado previamente.", score: 3 },
+                            { text: "Prefiero no opinar para evitar conflictos o parecer demasiado crítico.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Tu equipo está desmotivado por una serie de fracasos recientes. Como responsable del grupo, ¿cómo actúas?",
+                        options: [
+                            { text: "Reconozco los errores, propongo un nuevo enfoque y motivo al equipo para seguir adelante.", score: 3 },
+                            { text: "Espero a que el equipo recupere el ánimo por sí mismo, evitando intervenir demasiado.", score: 1 },
+                            { text: "Refuerzo las reglas y exijo más compromiso para evitar más fracasos.", score: 2 }
+                        ]
+                    },
+                    {
+                        question: "Tu equipo propone una idea que tú consideras arriegada, pero están motivados y convencidos. ¿Qué haces?",
+                        options: [
+                            { text: "Escucho sus argumentos, evalúo riesgos con ellos y si hay viabilidad, los respaldo.", score: 3 },
+                            { text: "Les explico por qué no es viable y les pido que propongan otra opción.", score: 2 },
+                            { text: "Rechazo la idea directamente para evitar consecuencias negativas.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Durante tu jornada, surgen interrupciones constantes (mensajes, llamadas, reuniones). ¿Cómo mantienes tu productividad?",
+                        options: [
+                            { text: "Me adapto a las interrupciones y trabajo en lo que puedo entre ellas.", score: 2 },
+                            { text: "Establezco bloques de tiempo sin interrupciones, comunico límites y me enfoco en lo prioritario.", score: 3 },
+                            { text: "Atiendo todo llo que llega en el momento, aunque eso retrase mis tareas principales.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Tienes tres tareas urgentes, pero solo tiempo para una. Todas tienen impactodirecto en tus resultados. ¿Cuál eliges?",
+                        options: [
+                            { text: "La que depende de otros para avanzar, así no se convierte en cuello de botella.", score: 3 },
+                            { text: "La que puedes terminar mas rápido, para liberar espacio mental.", score: 2 },
+                            { text: "La que te resulta más cómoda, para evitar estrés innecesario.", score: 1 }
+                        ]
+                    },
+                    {
+                        question: "Te asignan una tarea que nunca has hecho antes, sin instrucciones claras. ¿Cómo reaccionas?",
+                        options: [
+                            { text: "Investigo, experimento y propongo una forma propia de abordarla.", score: 3 },
+                            { text: "Pido ayuda inmediatamente para que me digan exactamente qué hacer.", score: 1 },
+                            { text: "Espero a que alguien más tome la iniciativa y luego sigo su ejemplo.", score: 2 }
+                        ]
+                    },
+                    {
+                        question: "Tu equipo está estancado en una lluvia de ideas para una campaña. ¿Qué haces?",
+                        options: [
+                            { text: "Sugiero cambiar de ambiente o dinámica para estimular nuevas ideas.", score: 3 },
+                            { text: "Espero a que alguien proponga algo interesante y luego aporto sobre esa base.", score: 2 },
+                            { text: "Propongo usar una idea que ya funcionó en el pasado.", score: 1 }
+                        ]
+                    }
+                ];
+                // Seleccionar 10 preguntas aleatorias para esta sesión
+                this.questions = this.shuffleArray([...this.allQuestions]).slice(0, 10);
+                
+                this.init();
+            }
+            
+            async init() {
+                await this.checkUserStatus();
+                this.showWelcomeSection();
+            }
+            
+            async checkUserStatus() {
+                try {
+                    const response = await fetch('get_user_status.php');
+                    const data = await response.json();
+                    
+                    if (data.logged_in) {
+                        this.userId = data.user_id;
+                        this.userEmail = data.user_email;
+                        this.userName = data.user_name;
+                        
+                        // Verificar si ya completó el test
+                        const testResponse = await fetch('check_test_completion.php');
+                        const testData = await testResponse.json();
+                        
+                        if (testData.completed) {
+                            this.showAlreadyCompleted();
+                        }
+                    } else {
+                        this.showLoginRequired();
+                    }
+                } catch (error) {
+                    console.error('Error verificando estado del usuario:', error);
+                    this.showLoginRequired();
+                }
+            }
+            
+            showWelcomeSection() {
+                this.hideAllSections();
+                document.getElementById('welcomeSection').style.display = 'block';
+                document.getElementById('progressSection').style.display = 'none';
+            }
+            
+            showLoginRequired() {
+                this.hideAllSections();
+                document.getElementById('loginRequired').style.display = 'block';
+            }
+            
+            showAlreadyCompleted() {
+                this.hideAllSections();
+                document.getElementById('alreadyCompleted').style.display = 'block';
+            }
+            
+            hideAllSections() {
+                document.getElementById('welcomeSection').style.display = 'none';
+                document.getElementById('questionSection').style.display = 'none';
+                document.getElementById('completionSection').style.display = 'none';
+                document.getElementById('loginRequired').style.display = 'none';
+                document.getElementById('alreadyCompleted').style.display = 'none';
+            }
+            
+            startTest() {
+                this.hideAllSections();
+                document.getElementById('questionSection').style.display = 'block';
+                document.getElementById('progressSection').style.display = 'block';
+                this.showQuestion();
+            }
+            
+            showQuestion() {
+                if (this.currentQuestion >= this.questions.length) {
+                    this.completeTest();
+                    return;
+                }
+                // Limpiar cualquier temporizador anterior
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                this.timeLeft = 20;
+                document.getElementById('timer').textContent = `⏰ Tiempo restante: ${this.timeLeft}s`;
+                this.timerInterval = setInterval(() => {
+                    this.timeLeft--;
+                    document.getElementById('timer').textContent = `⏰ Tiempo restante: ${this.timeLeft}s`;
+                    if (this.timeLeft <= 0) {
+                        clearInterval(this.timerInterval);
+                        this.selectOption({text: 'Sin respuesta', score: 0, timeout: true});
+                    }
+                }, 1000);
+                
+                const question = this.questions[this.currentQuestion];
+                document.getElementById('questionText').textContent = question.question;
+                
+                // Randomizar las opciones
+                const shuffledOptions = this.shuffleArray([...question.options]);
+                
+                const optionsContainer = document.getElementById('optionsContainer');
+                optionsContainer.innerHTML = '';
+                
+                shuffledOptions.forEach((option, index) => {
+                    const button = document.createElement('button');
+                    button.className = 'option-button';
+                    button.textContent = option.text;
+                    button.onclick = () => this.selectOption(option);
+                    optionsContainer.appendChild(button);
+                });
+                
+                // Actualizar progreso
+                this.updateProgress();
+            }
+            
+            shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+            
+            selectOption(option) {
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                // Guardar respuesta
+                this.answers.push({
+                    question: this.questions[this.currentQuestion].question,
+                    answer: option.text,
+                    score: option.score
+                });
+                
+                this.totalScore += option.score;
+                this.currentQuestion++;
+                
+                // Mostrar siguiente pregunta
+                setTimeout(() => {
+                    this.showQuestion();
+                }, 300);
+            }
+            
+            updateProgress() {
+                const progress = (this.currentQuestion / this.questions.length) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressText').textContent = `${this.currentQuestion}/${this.questions.length}`;
+            }
+            
+            async completeTest() {
+                this.isCompleted = true;
+                
+                // Determinar resultado final
+                let resultFinal;
+                if (this.totalScore <= 12) {
+                    resultFinal = "Nivel bajo";
+                } else if (this.totalScore <= 21) {
+                    resultFinal = "Nivel medio";
+                } else {
+                    resultFinal = "Nivel alto";
+                }
+                
+                // Guardar en base de datos
+                try {
+                    const response = await fetch('save_test_results.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: this.userId,
+                            answers: this.answers,
+                            totalScore: this.totalScore,
+                            resultFinal: resultFinal
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        this.showCompletionSection();
+                    } else {
+                        // Mostrar mensaje de error en pantalla
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'error-message';
+                        errorDiv.style.backgroundColor = '#f8d7da';
+                        errorDiv.style.color = '#721c24';
+                        errorDiv.style.padding = '1rem';
+                        errorDiv.style.borderRadius = '8px';
+                        errorDiv.style.margin = '1rem 0';
+                        errorDiv.style.border = '1px solid #f5c6cb';
+                        errorDiv.textContent = data.message || 'Error guardando resultados.';
+                        document.getElementById('completionSection').prepend(errorDiv);
+                        this.showCompletionSection();
+                    }
+                } catch (error) {
+                    console.error('Error guardando resultados:', error);
+                    this.showCompletionSection(); // Mostrar mensaje de todos modos
+                }
+            }
+            
+            showCompletionSection() {
+                this.hideAllSections();
+                document.getElementById('completionSection').style.display = 'block';
+                document.getElementById('progressSection').style.display = 'none';
+            }
+            
+            closePage() {
+                // Redirigir al inicio en lugar de cerrar la ventana
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // Inicializar la página del chatbot
+        let chatbotPage;
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                chatbotPage = new ChatbotPage();
+            });
+        } else {
+            chatbotPage = new ChatbotPage();
+        }
+    </script>
+</body>
+</html> 
