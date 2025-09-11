@@ -1,7 +1,7 @@
 <?php
 /**
  * Script para analizar la base de datos y diagnosticar problemas
- * 
+  
  * Este script:
  * 1. Verifica la estructura de la base de datos
  * 2. Analiza los usuarios existentes

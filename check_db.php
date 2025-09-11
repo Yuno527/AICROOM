@@ -14,11 +14,11 @@ echo "</ul>";
 echo "<h3>2. Prueba de conexión:</h3>";
 try {
     $pdo = getConnection();
-    echo "<p style='color: green;'>✅ Conexión exitosa a la base de datos</p>";
+    echo "<p style='color: green;'> Conexión exitosa a la base de datos</p>";
     
     // Verificar tabla
     if (tableExists($pdo, 'tbl_usuario')) {
-        echo "<p style='color: green;'>✅ La tabla tbl_usuario existe</p>";
+        echo "<p style='color: green;'> La tabla tbl_usuario existe</p>";
         
         // Verificar columnas
         $stmt = $pdo->query("DESCRIBE tbl_usuario");
@@ -37,12 +37,12 @@ try {
         echo "<p>👥 Usuarios registrados: " . $count['total'] . "</p>";
         
     } else {
-        echo "<p style='color: red;'>❌ La tabla tbl_usuario NO existe</p>";
+        echo "<p style='color: red;'> La tabla tbl_usuario NO existe</p>";
         echo "<p>Importa el archivo aicroom.sql para crear la tabla</p>";
     }
     
 } catch (Exception $e) {
-    echo "<p style='color: red;'>❌ Error de conexión: " . $e->getMessage() . "</p>";
+    echo "<p style='color: red;'> Error de conexión: " . $e->getMessage() . "</p>";
     echo "<p>Verifica:</p>";
     echo "<ul>";
     echo "<li>Que MySQL esté ejecutándose</li>";

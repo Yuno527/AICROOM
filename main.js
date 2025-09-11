@@ -115,11 +115,11 @@ function updateNavigation(authData) {
         // Agregar enlace de resultados solo para administradores
         if (userRole === 'admin') {
             // Buscar si ya existe el enlace de resultados
-            let resultadosLink = navLinks.querySelector('a[href="resultados.html"]');
+            let resultadosLink = navLinks.querySelector('a[href="resultados.php"]');
             if (!resultadosLink) {
                 // Crear el enlace de resultados
                 resultadosLink = document.createElement('li');
-                resultadosLink.innerHTML = '<a href="resultados.html"><i class="fas fa-chart-bar"></i> Resultados</a>';
+                resultadosLink.innerHTML = '<a href="resultados.php"><i class="fas fa-chart-bar"></i> Resultados</a>';
                 navLinks.appendChild(resultadosLink);
             }
         }
@@ -156,7 +156,7 @@ function updateNavigation(authData) {
         }
         
         // Remover enlace de resultados si existe
-        const resultadosLink = navLinks.querySelector('a[href="resultados.html"]');
+        const resultadosLink = navLinks.querySelector('a[href="resultados.php"]');
         if (resultadosLink) {
             resultadosLink.parentElement.remove();
         }

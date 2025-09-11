@@ -1,3 +1,6 @@
+<?php
+require_once 'user_session.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,19 +9,20 @@
     <title>Inicio - AICROOM | Inteligencia Artificial para Evaluar Talento Humano</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <?php generateUserScript(); ?>
 </head>
-<body>
+<body <?php echo generateUserAttributes(); ?> class="<?php echo generateAdminClass(); ?>">
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <a href="index.html" class="logo">
+                <a href="index.php" class="logo">
                     <img src="images/logo.jpeg" alt="Logo AICROOM" style="height: 40px; margin-right: 10px;">
                     AICROOM
                 </a>
                 
                 <!-- Menú desktop -->
                 <ul class="nav-menu">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="index.php" class="nav-link">Inicio</a></li>
                     <li class="nav-item"><a href="como-funciona.html" class="nav-link">Cómo funciona</a></li>
                     <li class="nav-item"><a href="empresa.html" class="nav-link">Sobre nosotros</a></li>
                     <li class="nav-item"><a href="contacto.html" class="nav-link">Contacto</a></li>
@@ -43,7 +47,7 @@
             <!-- Menú móvil -->
             <div class="mobile-menu" id="mobileMenu">
                 <ul class="mobile-nav-menu">
-                    <li class="mobile-nav-item"><a href="index.html" class="mobile-nav-link">Inicio</a></li>
+                    <li class="mobile-nav-item"><a href="index.php" class="mobile-nav-link">Inicio</a></li>
                     <li class="mobile-nav-item"><a href="como-funciona.html" class="mobile-nav-link">Cómo funciona</a></li>
                     <li class="mobile-nav-item"><a href="empresa.html" class="mobile-nav-link">Sobre nosotros</a></li>
                     <li class="mobile-nav-item"><a href="contacto.html" class="mobile-nav-link">Contacto</a></li>

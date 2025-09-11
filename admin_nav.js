@@ -55,7 +55,7 @@ class AdminNavigation {
     
     removeExistingUserLinks(nav) {
         // Remover enlaces de resultados, usuario y logout existentes
-        const existingLinks = nav.querySelectorAll('a[href="resultados.html"], .user-menu, .logout-btn, .login-btn');
+        const existingLinks = nav.querySelectorAll('a[href="resultados.php"], .user-menu, .logout-btn, .login-btn');
         existingLinks.forEach(link => {
             if (link.parentElement) {
                 link.parentElement.remove();
@@ -65,11 +65,11 @@ class AdminNavigation {
     
     addAdminLinks(nav) {
         // Verificar si ya existe el enlace de resultados
-        const existingResultsLink = nav.querySelector('a[href="resultados.html"]');
+        const existingResultsLink = nav.querySelector('a[href="resultados.php"]');
         if (!existingResultsLink) {
             // Crear el enlace de resultados
             const resultsLi = document.createElement('li');
-            resultsLi.innerHTML = '<a href="resultados.html"><i class="fas fa-chart-bar"></i> Resultados</a>';
+            resultsLi.innerHTML = '<a href="resultados.php"><i class="fas fa-chart-bar"></i> Resultados</a>';
             
             // Insertar antes del último elemento (que suele ser el CTA)
             const lastLi = nav.querySelector('li:last-child');
